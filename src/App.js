@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import React,{Suspense} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import CreateForm from './containers/applicationForm/form';
 import UserList from './containers/userList/list';
@@ -7,9 +8,20 @@ import Home from './containers/home/HomeComponent';
 import Header from './components/header/HeaderComponent';
 import Layout from './components/layout/Layout';
 import NotFoundComponent from './containers/notFound/NotFound';
-import Dashboard from './containers/dashboard/Dashboard';
-import Settings from './containers/dashboard/settings';
-import Profile from './containers/dashboard/profile';
+const Dashboard = React.lazy(() => 
+  {
+    return new Promise((resolve)=>{
+      setTimeout(() =>{
+      resolve(import('./containers/dashboard/Dashboard'));  
+    },3000)
+    })
+    
+  }) ;
+
+const Settings = React.lazy(()=> import('./containers/dashboard/settings')) ;
+const Profile = React.lazy(()=> import('./containers/dashboard/profile'))
+
+
 
 function App() {
   return (
@@ -17,8 +29,8 @@ function App() {
 
       
 
-
-      <BrowserRouter>
+<Suspense fallback={<FallBackComponent />}>
+  <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />} >
           <Route path="list" element={<UserList />}/>
@@ -27,14 +39,26 @@ function App() {
             <Route path="settings"  element = {<Settings />}/>
             <Route path= "profile" element = {<Profile />}/>
           </Route>
+          <Route path="*" element={<NotFoundComponent />} />
           </Route>
           
 
         </Routes>
       </BrowserRouter>
+
+</Suspense>
+      
       
     </div>
   );
 }
 
 export default App;
+
+const FallBackComponent = () =>{
+  return (
+    <div>
+      Waiting ...
+    </div>
+  )
+}
