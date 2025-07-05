@@ -7,11 +7,11 @@ const Layout = () => {
         <div>
             <Header />
             Layout
-            <ErrorBoundary>
+            {/* <ErrorBoundary> */}
                 <div>
                     <Outlet />
                 </div>
-            </ErrorBoundary>
+            {/* </ErrorBoundary> */}
         </div>
     )
 }
