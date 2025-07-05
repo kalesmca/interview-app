@@ -1,17 +1,17 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../header/HeaderComponent";
-import {Outlet} from 'react-router-dom';
-const Layout = () =>{
-    return(
+import { Outlet } from 'react-router-dom';
+import ErrorBoundary from "../ErrorBoundary";
+const Layout = () => {
+    return (
         <div>
             <Header />
-
-            Layout 
-
-
-            <div>
-                <Outlet />
-            </div>
+            Layout
+            <ErrorBoundary>
+                <div>
+                    <Outlet />
+                </div>
+            </ErrorBoundary>
         </div>
     )
 }
