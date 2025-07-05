@@ -7,10 +7,11 @@ const CreateFormComponent = () =>{
     const myMethod = () =>{
         console.log("my method calling")
     }
-    const myDeb = useDeBounce(myMethod)
+    const myDebounce = useDeBounce(myMethod);
     const handleChange = (e) =>{
         setName(e.target.value);
-        myDeb();
+        myDebounce();
+        // myDebounce(e.target.value); passing value is optional
     }
     return(
         <div>
