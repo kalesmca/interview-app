@@ -1,23 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import CreateForm from './containers/applicationForm/form';
+import UserList from './containers/userList/list';
+import Home from './containers/home/HomeComponent';
+import Header from './components/header/HeaderComponent';
+import Layout from './components/layout/Layout';
+import NotFoundComponent from './containers/notFound/NotFound';
+import Dashboard from './containers/dashboard/Dashboard';
+import Settings from './containers/dashboard/settings';
+import Profile from './containers/dashboard/profile';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+
+      
+
+
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />} >
+          <Route path="list" element={<UserList />}/>
+          <Route path="create" element = {<CreateForm />} />
+          <Route path="dashboard" element ={<Dashboard />} >
+            <Route path="settings"  element = {<Settings />}/>
+            <Route path= "profile" element = {<Profile />}/>
+          </Route>
+          </Route>
+          
+
+        </Routes>
+      </BrowserRouter>
+      
     </div>
   );
 }
