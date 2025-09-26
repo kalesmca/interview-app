@@ -1,9 +1,10 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect, useTransition} from "react";
 
 const UserList = () =>{
     const [userList, setUserList] =useState([]);
     const [filtereList, setFiltereList] = useState([]);
     const [name, setName] = useState("");
+    const [isPending, startTransition] = useTransition();
 
     useEffect(()=>{
         fetch("https://jsonplaceholder.typicode.com/users").then((res)=> res.json()).then((data) =>{
@@ -15,6 +16,7 @@ const UserList = () =>{
         })
     },[])
     const getFilteredList = () =>{
+        console.log("filter call")
         const list = userList.filter((data) =>{
             return data.name.toLowerCase().includes(name.toLowerCase());
         })
@@ -22,29 +24,37 @@ const UserList = () =>{
 
     }
     useEffect(()=>{
-        if(name){
-            const ownTime = setTimeout(()=>{
-            getFilteredList();
-        },300)
-        return ()=>{
-            clearTimeout(ownTime);
-        }
+        getFilteredList();
+        // if(name){
+        //     const ownTime = setTimeout(()=>{
+        //     getFilteredList();
+        // },300)
+        // return ()=>{
+        //     clearTimeout(ownTime);
+        // }
 
-        }else{
-            setFiltereList(userList);
-        }
+        // }else{
+        //     setFiltereList(userList);
+        // }
         
     },[name])
+    const handle = (e) =>{
+        startTransition(() =>{
+            setName(e.target.value);
+        })
+    }
     return(
         <div>
             <div><b>Users</b></div>
             <div >
                 <input 
                 style={{width:"80%", margin:"25px"}} 
-                value={name} onChange={(e)=>{setName(e.target.value)}}
+                value={name} onChange={(e)=>{handle(e)}}
                 placeholder="Filter by Name"
             />
+            {isPending && <span>Loading...</span>}
             </div>
+            
             <ul>
                 {
                     filtereList?.length ? filtereList.map((data, index) =>{
