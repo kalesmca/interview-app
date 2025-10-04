@@ -10,9 +10,8 @@ import Home from './containers/home/HomeComponent';
 import Header from './components/header/HeaderComponent';
 import Layout from './components/layout/Layout';
 import NotFoundComponent from './containers/notFound/NotFound';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
-import CounterApp from './containers/counter/counterApp';
+// import { Provider } from 'react-redux';
+// import CounterApp from './containers/counter/counterApp';
 const Dashboard = React.lazy(() => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -36,7 +35,7 @@ function App() {
               <Route path="/" element={<Layout />} >
                 <Route path="list" element={<UserList />} />
                 <Route path="create" element={<CreateForm />} />
-                <Route path="counter" element={<CounterApp />} />
+                {/* <Route path="counter" element={<CounterApp />} /> */}
                 <Route path="dashboard" element={<Dashboard />} >
                   <Route path="settings" element={<Settings />} />
                   <Route path="profile" element={<Profile />} />
