@@ -1,0 +1,15 @@
+.card-container{
+    margin: 15px;
+    float: left;
+    .card-header{
+        font-size: larger;
+    }
+    border: 1px solid;
+    .item{
+        padding: 5px;
+
+    }
+    .value{
+        padding: 5px;
+    }
+}
